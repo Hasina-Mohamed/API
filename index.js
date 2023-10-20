@@ -1,12 +1,14 @@
 const express = require("express");
 // import modules from OpenAI
 const { Configuration, OpenAIApi } = require("openai");
+const cors = require("cors")
 
 // config dotenv
 require("dotenv").config();
 
 const app = express();
 app.use(express.json());
+app.use(cors())
 
 // open ai configuration
 const configuration = new Configuration({
@@ -30,9 +32,10 @@ const initialMessages = (prompt) => [
 ];
 
 // POST request endpoint
-app.post("/ask", async (req, res) => {
+app.get("/ask", async (req, res) => {
   // getting prompt question from request
-  const prompt = req.body.prompt;
+  // const prompt = req.body.prompt;
+  const prompt = "what is 3+5?";
 
   try {
     if (prompt == null) {
